@@ -93,7 +93,7 @@ export function RewardsTab() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex gap-2 overflow-x-auto pb-2">
         {rarityFilters.map(f => (
           <button
             key={f.id}
@@ -124,8 +124,8 @@ export function RewardsTab() {
         <EmptyState icon="🏆" title="No rewards found" description="Rewards will appear here as you participate in the community." />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map(reward => (
-            <RewardCard key={reward.id} reward={reward} unlocked={false} />
+          {filtered.map((reward, i) => (
+            <RewardCard key={reward.id} reward={reward} unlocked={reward.rarity === "common" || reward.rarity === "uncommon"} />
           ))}
         </div>
       )}

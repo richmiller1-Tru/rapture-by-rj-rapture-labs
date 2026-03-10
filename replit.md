@@ -30,6 +30,7 @@ Rapture is the official platform home for **Chronicles Reborn** — a scripture-
 - **Backend:** Express.js with RESTful API routes prefixed `/api/`
 - **Database:** PostgreSQL with Drizzle ORM (drizzle-zod for validation)
 - **Styling:** Tailwind CSS, dark mode default, purple primary theme with amber/gold accents
+- **Tab routing:** Uses `window.location.search` (not wouter's `useLocation`) for query param parsing. Tab changes push URL state via `window.history.pushState` for proper back-button support.
 
 ## Database Tables
 
@@ -61,15 +62,24 @@ All in `client/src/components/chronicles/`:
 Database seeds automatically on first startup (checks if characters exist to prevent duplicates):
 - 6 characters (David, Samson, Joshua, Gideon, Elijah, Holy Spirit)
 - 10 battles (all major biblical battles)
-- 8 community posts (fan art, strategy guides, clips, reflections)
-- 5 challenges (active + upcoming)
+- 16 community posts (fan art, strategy guides, clips, reflections, music)
+- 4 active challenges + 1 upcoming
 - 10 rewards (common to legendary)
 - 6 featured creator profiles
 
 ## Design
 
-- **Dark mode** by default (game/anime aesthetic)
+- **Dark mode** by default (set in `main.tsx` via `document.documentElement.classList.add("dark")`)
 - **Primary color:** Purple (#7c3aed)
 - **Accent color:** Amber/Gold (#f59e0b, #ea580c)
 - **Typography:** Open Sans (body), heavy font weights for headings
 - **Mobile-first** responsive design with collapsible sidebar navigation
+- **Loading states:** Skeleton components for all homepage dynamic sections (challenges, posts, creators)
+- **Social proof:** Static stats (10 battles, 6 heroes, Free Demo, 100% Scripture-Based)
+
+## Important Notes
+
+- `apiRequest(method, url, data)` signature used throughout
+- `insertChroniclesPostSchema` omits likes/comments/shares — seed uses `db.insert` directly with `as any` for custom counts
+- Common/uncommon rewards show as unlocked in RewardsTab for demo appeal
+- Game URL: `https://chronicles-reborn-rjrapturelabs.replit.app`

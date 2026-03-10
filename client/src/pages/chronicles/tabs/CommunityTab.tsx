@@ -112,8 +112,8 @@ export function CommunityTab() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2">
-        <div className="flex gap-1.5 p-1 bg-white/5 rounded-lg border border-white/10">
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+        <div className="flex gap-1.5 p-1 bg-white/5 rounded-lg border border-white/10 flex-shrink-0">
           {FILTERS.map(f => (
             <button
               key={f.id}
@@ -125,7 +125,7 @@ export function CommunityTab() {
             </button>
           ))}
         </div>
-        <div className="flex gap-1.5 p-1 bg-white/5 rounded-lg border border-white/10">
+        <div className="flex gap-1.5 p-1 bg-white/5 rounded-lg border border-white/10 flex-shrink-0">
           {CATEGORY_FILTERS.map(f => (
             <button
               key={f.id}

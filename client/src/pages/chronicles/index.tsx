@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
 import { OverviewTab } from "./tabs/OverviewTab";
 import { PlayGameTab } from "./tabs/PlayGameTab";
 import { CommunityTab } from "./tabs/CommunityTab";
@@ -11,7 +10,6 @@ import { FeaturedCreatorsTab } from "./tabs/FeaturedCreatorsTab";
 import { LeaderboardTab } from "./tabs/LeaderboardTab";
 import { LoreTab } from "./tabs/LoreTab";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Home, Play, Users, Image, Gamepad2, Trophy, Star, Award, BarChart3, BookOpen, Menu, X, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 
@@ -44,23 +42,36 @@ function TabContent({ tab }: { tab: string }) {
   }
 }
 
+function getTabFromUrl(): string {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("tab") || "overview";
+}
+
 export default function ChroniclesHub() {
-  const [location] = useLocation();
-  const params = new URLSearchParams(location.split("?")[1] || "");
-  const initialTab = params.get("tab") || "overview";
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const [activeTab, setActiveTab] = useState(getTabFromUrl);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
-    const p = new URLSearchParams(location.split("?")[1] || "");
-    const tab = p.get("tab");
-    if (tab) setActiveTab(tab);
-  }, [location]);
+    const handlePopState = () => setActiveTab(getTabFromUrl());
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  useEffect(() => {
+    const tab = getTabFromUrl();
+    if (tab !== activeTab) setActiveTab(tab);
+  }, []);
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    const url = tabId === "overview" ? "/chronicles" : `/chronicles?tab=${tabId}`;
+    window.history.pushState({}, "", url);
+  };
 
   const currentTab = tabs.find(t => t.id === activeTab) || tabs[0];
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-background">
       {/* Top nav bar */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
@@ -104,7 +115,7 @@ export default function ChroniclesHub() {
             {tabs.map(tab => (
               <button
                 key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setMobileNavOpen(false); }}
+                onClick={() => { handleTabChange(tab.id); setMobileNavOpen(false); }}
                 className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-left text-sm font-medium transition-all ${
                   activeTab === tab.id
                     ? "bg-purple-600/30 text-white border border-purple-500/30"
@@ -127,7 +138,7 @@ export default function ChroniclesHub() {
             {tabs.map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium transition-all hover-elevate ${
                   activeTab === tab.id
                     ? "bg-purple-600/25 text-white border border-purple-500/30"
@@ -150,7 +161,7 @@ export default function ChroniclesHub() {
               {tabs.map(tab => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
                     activeTab === tab.id
                       ? "bg-purple-600 text-white"

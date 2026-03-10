@@ -15,7 +15,7 @@ export function SectionHeader({ title, subtitle, badge, centered = false, childr
         </span>
       )}
       <h2 className="text-2xl md:text-3xl font-bold text-white">{title}</h2>
-      {subtitle && <p className="mt-2 text-muted-foreground text-sm md:text-base max-w-2xl">{centered ? undefined : undefined}{subtitle}</p>}
+      {subtitle && <p className="mt-2 text-muted-foreground text-sm md:text-base max-w-2xl">{subtitle}</p>}
       {children && <div className="mt-4">{children}</div>}
     </div>
   );
