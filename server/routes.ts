@@ -15,6 +15,11 @@ export async function registerRoutes(
   // Seed the database on startup
   await seedDatabase();
 
+  // Health check
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   // ---- Characters ----
   app.get("/api/chronicles/characters", async (req, res) => {
     try {
