@@ -185,6 +185,106 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative overflow-hidden border-y border-white/5">
+        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 40%, #0d1117 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 0% 50%, rgba(124,58,237,0.18) 0%, transparent 60%)" }} />
+        <div className="absolute inset-0 opacity-[0.025]"
+          style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
+                <Star className="w-3 h-3" /> The Origin · Founded March 2026
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-white leading-[1.05] mb-6">
+                One man's vision.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-amber-400">An entire universe born.</span>
+              </h2>
+              <blockquote className="border-l-4 border-purple-500 pl-5 mb-6">
+                <p className="text-white/80 text-lg leading-relaxed italic">
+                  "I didn't just want to build a game. I wanted to build a world where the Bible came alive — where David's courage, Elijah's fire, and Joshua's boldness were things you could feel. Chronicles Reborn is that world."
+                </p>
+                <footer className="mt-3 text-purple-300 font-black text-sm tracking-wide">— RJ · Founder, RJ Rapture Labs</footer>
+              </blockquote>
+              <p className="text-white/60 leading-relaxed text-sm mb-6">
+                RJ Rapture Labs was founded with a single mission: to create faith-based gaming experiences that don't compromise on quality, depth, or truth. Chronicles Reborn is the first title — a scripture-based anime battle game that has never been done before. The Rapture platform was built to give this community the home it deserves.
+              </p>
+              <div className="flex flex-wrap gap-6">
+                {[
+                  { label: "Founded", value: "March 2026" },
+                  { label: "Studio", value: "RJ Rapture Labs" },
+                  { label: "Mission", value: "Faith × Gaming" },
+                ].map(item => (
+                  <div key={item.label}>
+                    <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">{item.label}</div>
+                    <div className="text-white font-black text-sm">{item.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="rounded-2xl border border-purple-500/20 bg-purple-500/5 p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white text-3xl font-black border border-purple-500/30 shadow-xl shadow-purple-500/20 flex-shrink-0">
+                    RJ
+                  </div>
+                  <div>
+                    <div className="font-black text-white text-lg leading-tight">RJ</div>
+                    <div className="text-purple-300 font-bold text-sm">Founder & Creator</div>
+                    <div className="text-xs text-muted-foreground">RJ Rapture Labs · Est. 2026</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10">
+                  {[
+                    { icon: Swords, label: "Games Built", value: "1" },
+                    { icon: Users, label: "Community", value: "Growing" },
+                    { icon: BookOpen, label: "Scripture", value: "100%" },
+                  ].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="text-center">
+                      <Icon className="w-4 h-4 text-purple-400 mx-auto mb-1" />
+                      <div className="text-white font-black text-sm">{value}</div>
+                      <div className="text-xs text-muted-foreground">{label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-5">
+                <div className="flex items-start gap-3">
+                  <Flame className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-black text-white text-sm mb-1">The Founding Period Is Happening Now</div>
+                    <p className="text-xs text-white/60 leading-relaxed">
+                      This is the ground floor. The creators who join during this founding period will be permanently recognized as the original builders of the Chronicles Reborn universe. There will never be another founding period.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">The Vision Road</div>
+                <div className="space-y-3">
+                  {[
+                    { phase: "Phase 1", title: "Chronicles Reborn Launches", status: "complete", color: "text-green-400" },
+                    { phase: "Phase 2", title: "Rapture Community Platform", status: "live", color: "text-amber-400" },
+                    { phase: "Phase 3", title: "New Game Chapters + Animated Series", status: "next", color: "text-purple-400" },
+                    { phase: "Phase 4", title: "RJ Rapture Labs Franchise Expansion", status: "future", color: "text-blue-400" },
+                  ].map(({ phase, title, status, color }) => (
+                    <div key={phase} className="flex items-center gap-3">
+                      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${status === "complete" ? "bg-green-400" : status === "live" ? "bg-amber-400 animate-pulse" : "bg-white/20"}`} />
+                      <div className="flex-1 min-w-0">
+                        <span className={`text-xs font-bold ${color} mr-2`}>{phase}</span>
+                        <span className="text-xs text-white/70">{title}</span>
+                      </div>
+                      {status === "live" && <span className="text-xs font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/30">LIVE</span>}
+                      {status === "complete" && <span className="text-xs font-bold text-green-400 bg-green-400/10 px-2 py-0.5 rounded-full border border-green-400/30">DONE</span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="relative rounded-2xl overflow-hidden border border-amber-400/20">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-950/60 via-orange-950/40 to-slate-900" />
@@ -517,18 +617,65 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 py-8">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-xs font-black">R</div>
-            <span className="font-bold text-white">Rapture</span>
-            <span>· RJ Rapture Labs</span>
+      <footer className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-800 flex items-center justify-center text-white font-black text-lg border border-purple-500/30">R</div>
+                <div>
+                  <div className="font-black text-white text-base leading-none">RAPTURE</div>
+                  <div className="text-xs text-purple-400 font-medium">by RJ Rapture Labs</div>
+                </div>
+              </div>
+              <p className="text-sm text-white/50 leading-relaxed max-w-xs mb-4">
+                The official community platform for Chronicles Reborn — a scripture-based anime battle game built from the ground up by RJ Rapture Labs.
+              </p>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-bold">
+                <Zap className="w-3 h-3" /> Founded by RJ · March 2026
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Platform</div>
+              <div className="space-y-2.5 text-sm">
+                <Link href="/chronicles"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Chronicles Hub</span></Link>
+                <Link href="/chronicles?tab=community"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Community</span></Link>
+                <Link href="/chronicles?tab=challenges"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Challenges</span></Link>
+                <Link href="/chronicles?tab=rewards"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Rewards</span></Link>
+                <Link href="/chronicles?tab=leaderboard"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Leaderboard</span></Link>
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Chronicles Reborn</div>
+              <div className="space-y-2.5 text-sm">
+                <Link href="/chronicles?tab=lore"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Lore Library</span></Link>
+                <Link href="/chronicles?tab=creators"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Creator Spotlight</span></Link>
+                <Link href="/chronicles?tab=fan-art"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Fan Art Gallery</span></Link>
+                <a href="https://chronicles-reborn-rjrapturelabs.replit.app" target="_blank" rel="noopener noreferrer">
+                  <span className="text-amber-400 hover:text-amber-300 transition-colors cursor-pointer block font-bold">Play Free Demo ↗</span>
+                </a>
+                <Link href="/auth"><span className="text-white/60 hover:text-white transition-colors cursor-pointer block">Sign Up / Register</span></Link>
+              </div>
+            </div>
           </div>
-          <div className="flex gap-4 text-xs">
-            <Link href="/chronicles">Chronicles Hub</Link>
-            <Link href="/chronicles?tab=community">Community</Link>
-            <Link href="/chronicles?tab=challenges">Challenges</Link>
-            <a href="https://chronicles-reborn-rjrapturelabs.replit.app" target="_blank" rel="noopener noreferrer">Play Game</a>
+          <div className="border-t border-white/10 pt-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-center md:text-left">
+                <p className="text-xs text-white/30">
+                  © 2026 RJ Rapture Labs. All rights reserved. Chronicles Reborn and Rapture are original creations of RJ Rapture Labs.
+                </p>
+                <p className="text-xs text-purple-400/60 mt-1 font-medium">
+                  Built by one founder. For the faith. For the culture. For history.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white font-black text-sm border border-purple-500/20">RJ</div>
+                <div className="text-xs text-right">
+                  <div className="text-white font-black">RJ Rapture Labs</div>
+                  <div className="text-white/40">Founder & Creator · Est. 2026</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
