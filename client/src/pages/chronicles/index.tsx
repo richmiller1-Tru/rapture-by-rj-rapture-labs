@@ -10,8 +10,9 @@ import { FeaturedCreatorsTab } from "./tabs/FeaturedCreatorsTab";
 import { LeaderboardTab } from "./tabs/LeaderboardTab";
 import { LoreTab } from "./tabs/LoreTab";
 import { Button } from "@/components/ui/button";
-import { Home, Play, Users, Image, Gamepad2, Trophy, Star, Award, BarChart3, BookOpen, Menu, X, ArrowLeft } from "lucide-react";
+import { Home, Play, Users, Image, Gamepad2, Trophy, Star, Award, BarChart3, BookOpen, Menu, X, ArrowLeft, LogOut, UserCircle } from "lucide-react";
 import { Link } from "wouter";
+import { useAuth } from "@/hooks/use-auth";
 
 const tabs = [
   { id: "overview", label: "Overview", icon: Home, shortLabel: "Overview" },
@@ -48,6 +49,7 @@ function getTabFromUrl(): string {
 }
 
 export default function ChroniclesHub() {
+  const { user, logoutMutation } = useAuth();
   const [activeTab, setActiveTab] = useState(getTabFromUrl);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
@@ -90,6 +92,35 @@ export default function ChroniclesHub() {
           </div>
 
           <div className="flex items-center gap-2">
+            {user ? (
+              <div className="hidden sm:flex items-center gap-2">
+                <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white text-[10px] font-bold">
+                    {user.username[0].toUpperCase()}
+                  </div>
+                  <span className="text-xs font-medium text-white" data-testid="hub-username">{user.username}</span>
+                </div>
+                <button
+                  onClick={() => logoutMutation.mutate()}
+                  className="p-1.5 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors"
+                  data-testid="hub-logout"
+                  title="Sign out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <Button
+                asChild
+                size="sm"
+                className="hidden sm:inline-flex font-bold bg-purple-600 hover:bg-purple-500 border-0 text-xs"
+                data-testid="hub-signin-button"
+              >
+                <Link href="/auth">
+                  <UserCircle className="w-3 h-3 mr-1.5" /> Sign In
+                </Link>
+              </Button>
+            )}
             <Button
               asChild
               size="sm"

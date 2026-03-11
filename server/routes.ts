@@ -60,11 +60,20 @@ export async function registerRoutes(
 
   app.post("/api/chronicles/posts", async (req, res) => {
     try {
+      if (!req.isAuthenticated()) {
+        return res.status(401).json({ error: "You must be signed in to create a post" });
+      }
+      const user = req.user as any;
       const parsed = insertChroniclesPostSchema.safeParse(req.body);
       if (!parsed.success) {
         return res.status(400).json({ error: parsed.error.flatten() });
       }
-      const post = await storage.createPost(parsed.data);
+      const post = await storage.createPost({
+        ...parsed.data,
+        userId: user.id,
+        authorName: user.username,
+        moderationStatus: "approved",
+      });
       res.status(201).json(post);
     } catch (e) {
       res.status(500).json({ error: "Failed to create post" });

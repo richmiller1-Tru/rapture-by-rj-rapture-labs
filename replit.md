@@ -7,11 +7,24 @@
 
 Rapture is the official platform home for **Chronicles Reborn** — a scripture-based anime battle game by RJ Rapture Labs. The platform serves as a growth engine, community hub, and content ecosystem for the game.
 
+## Authentication
+
+- **Auth system:** Passport.js local strategy with express-session + connect-pg-simple (PostgreSQL session store)
+- **Password hashing:** Node.js scrypt (built-in crypto module)
+- **Session secret:** Uses `SESSION_SECRET` environment variable
+- **Auth routes:** `/api/register`, `/api/login`, `/api/logout`, `/api/user`
+- **Auth hook:** `useAuth()` from `client/src/hooks/use-auth.tsx` — provides `user`, `loginMutation`, `registerMutation`, `logoutMutation`
+- **Auth provider:** `AuthProvider` wraps the entire app in `App.tsx`
+- **Auth page:** `/auth` — split-screen login/register with Rapture branding
+- **Navigation:** Both homepage and Chronicles Hub headers show user state (avatar + username when logged in, Sign In button when logged out)
+- **Community integration:** CommunityTab auto-fills the logged-in user's username as the post author name
+
 ## Pages & Routes
 
 | Route | Description |
 |-------|-------------|
 | `/` | Homepage — hero section, Chronicles feature banner, community posts, creator spotlight |
+| `/auth` | Login/Register page — split-screen with branding panel and auth forms |
 | `/chronicles` | Chronicles Reborn Hub (main hub with 10-tab navigation) |
 | `/chronicles?tab=overview` | Game overview, hero banner, characters, featured battles |
 | `/chronicles?tab=play` | Play game — iframe embed + demo launch + community CTAs |

@@ -18,6 +18,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Plus, Filter } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 const CATEGORIES = [
   "Fan Art", "Gameplay Clip", "Theory / Lore", "Strategy Guide",
@@ -51,6 +52,7 @@ const postFormSchema = insertChroniclesPostSchema.extend({
 type PostFormData = z.infer<typeof postFormSchema>;
 
 export function CommunityTab() {
+  const { user } = useAuth();
   const [filter, setFilter] = useState("latest");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [showCreate, setShowCreate] = useState(false);
@@ -74,7 +76,7 @@ export function CommunityTab() {
       title: "",
       content: "",
       category: "",
-      authorName: "Community Member",
+      authorName: user?.username || "Community Member",
       tags: [],
       moderationStatus: "approved",
     },
@@ -102,13 +104,23 @@ export function CommunityTab() {
           subtitle="Fan art, gameplay clips, strategies, and faith reflections from the community."
           badge="Community Feed"
         />
-        <Button
-          onClick={() => setShowCreate(true)}
-          className="font-bold bg-gradient-to-r from-purple-600 to-purple-500 border-0 flex-shrink-0"
-          data-testid="create-post-button"
-        >
-          <Plus className="w-4 h-4 mr-2" /> Create Post
-        </Button>
+        {user ? (
+          <Button
+            onClick={() => setShowCreate(true)}
+            className="font-bold bg-gradient-to-r from-purple-600 to-purple-500 border-0 flex-shrink-0"
+            data-testid="create-post-button"
+          >
+            <Plus className="w-4 h-4 mr-2" /> Create Post
+          </Button>
+        ) : (
+          <Button
+            asChild
+            className="font-bold bg-purple-600 hover:bg-purple-500 border-0 flex-shrink-0"
+            data-testid="community-signin-button"
+          >
+            <a href="/auth">Sign In to Post</a>
+          </Button>
+        )}
       </div>
 
       {/* Filters */}

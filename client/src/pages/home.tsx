@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { PostCard } from "@/components/chronicles/PostCard";
 import { CreatorSpotlightCard } from "@/components/chronicles/CreatorSpotlightCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Play, Users, ArrowRight, Swords, Star, BookOpen, Sparkles, Flame, Trophy, Zap, Award, Clock, Heart, FileText, ChevronRight, Gamepad2, Shield, Image } from "lucide-react";
+import { Play, Users, ArrowRight, Swords, Star, BookOpen, Sparkles, Flame, Trophy, Zap, Award, Clock, Heart, FileText, ChevronRight, Gamepad2, Shield, Image, LogOut, UserCircle } from "lucide-react";
 import { Link } from "wouter";
 import { formatDistanceToNow, isPast } from "date-fns";
+import { useAuth } from "@/hooks/use-auth";
 
 const navLinks = [
   { href: "/chronicles", label: "Chronicles Hub" },
@@ -32,6 +33,8 @@ const staticSocialProof = [
 ];
 
 export default function Home() {
+  const { user, logoutMutation } = useAuth();
+
   const { data: featuredPosts, isLoading: postsLoading } = useQuery<ChroniclesPost[]>({
     queryKey: ["/api/chronicles/posts/featured"],
   });
@@ -72,16 +75,47 @@ export default function Home() {
               </Link>
             ))}
           </nav>
-          <Button
-            asChild
-            size="sm"
-            className="font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-black border-0"
-            data-testid="nav-play-button"
-          >
-            <a href="https://chronicles-reborn-rjrapturelabs.replit.app" target="_blank" rel="noopener noreferrer">
-              <Play className="w-3 h-3 mr-1.5 fill-current" /> Play Now
-            </a>
-          </Button>
+          <div className="flex items-center gap-2">
+            {user ? (
+              <>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white text-xs font-bold">
+                    {user.username[0].toUpperCase()}
+                  </div>
+                  <span className="text-sm font-medium text-white hidden sm:inline" data-testid="nav-username">{user.username}</span>
+                </div>
+                <button
+                  onClick={() => logoutMutation.mutate()}
+                  className="p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors"
+                  data-testid="nav-logout"
+                  title="Sign out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </>
+            ) : (
+              <Button
+                asChild
+                size="sm"
+                className="font-bold bg-purple-600 hover:bg-purple-500 border-0"
+                data-testid="nav-signin-button"
+              >
+                <Link href="/auth">
+                  <UserCircle className="w-3.5 h-3.5 mr-1.5" /> Sign In
+                </Link>
+              </Button>
+            )}
+            <Button
+              asChild
+              size="sm"
+              className="font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-black border-0"
+              data-testid="nav-play-button"
+            >
+              <a href="https://chronicles-reborn-rjrapturelabs.replit.app" target="_blank" rel="noopener noreferrer">
+                <Play className="w-3 h-3 mr-1.5 fill-current" /> Play Now
+              </a>
+            </Button>
+          </div>
         </div>
       </header>
 
