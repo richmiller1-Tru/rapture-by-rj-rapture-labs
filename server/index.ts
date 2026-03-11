@@ -101,6 +101,16 @@ app.use((req, res, next) => {
     },
     () => {
       log(`serving on port ${port}`);
+
+      if (process.env.NODE_ENV === "production") {
+        setInterval(() => {
+          const http = require("http");
+          const req = http.get(`http://localhost:${port}/api/health`, (res: any) => {
+            res.resume();
+          });
+          req.on("error", () => {});
+        }, 4 * 60 * 1000);
+      }
     },
   );
 })();
