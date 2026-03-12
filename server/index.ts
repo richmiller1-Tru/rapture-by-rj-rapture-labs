@@ -103,13 +103,23 @@ app.use((req, res, next) => {
       log(`serving on port ${port}`);
 
       if (process.env.NODE_ENV === "production") {
-        setInterval(() => {
+        const keepAlive = () => {
           const http = require("http");
           const req = http.get(`http://localhost:${port}/api/health`, (res: any) => {
             res.resume();
           });
-          req.on("error", () => {});
-        }, 4 * 60 * 1000);
+          req.on("error", () => {
+            setTimeout(keepAlive, 30 * 1000);
+          });
+        };
+        setInterval(keepAlive, 2 * 60 * 1000);
+        const https = require("https");
+        setInterval(() => {
+          const ext = https.get("https://rapture-by-rj-rapture-labs.replit.app/api/health", (res: any) => {
+            res.resume();
+          });
+          ext.on("error", () => {});
+        }, 3 * 60 * 1000);
       }
     },
   );
