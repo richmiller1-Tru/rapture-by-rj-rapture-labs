@@ -90,9 +90,21 @@ Database seeds automatically on first startup (checks if characters exist to pre
 - **Loading states:** Skeleton components for all homepage dynamic sections (challenges, posts, creators)
 - **Social proof:** Static stats (10 battles, 6 heroes, Free Demo, 100% Scripture-Based)
 
+## Deployment & Hosting
+
+- **Primary production:** Render.com (free tier)
+- **GitHub repo:** https://github.com/richmiller1-Tru/rapture-by-rj-rapture-labs
+- **Render config:** `render.yaml` — declares web service + free PostgreSQL database
+- **Build command (Render):** `npm install --include=dev && npm run build && npm run db:push`
+- **Start command (Render):** `npm run start`
+- **Environment variables on Render:** `DATABASE_URL` (from Render DB), `SESSION_SECRET` (auto-generated), `NODE_ENV=production`, `RENDER_EXTERNAL_URL` (auto-set by Render)
+- **Keep-alive:** Internal ping every 2 min + external ping via `RENDER_EXTERNAL_URL` every 3 min
+- **Trust proxy:** `app.set("trust proxy", 1)` enabled for secure cookies behind Render's reverse proxy
+- **Replit:** Remains as development/backup environment
+- **Game URL:** `https://chronicles-reborn-rjrapturelabs.replit.app`
+
 ## Important Notes
 
 - `apiRequest(method, url, data)` signature used throughout
 - `insertChroniclesPostSchema` omits likes/comments/shares — seed uses `db.insert` directly with `as any` for custom counts
 - Common/uncommon rewards show as unlocked in RewardsTab for demo appeal
-- Game URL: `https://chronicles-reborn-rjrapturelabs.replit.app`
