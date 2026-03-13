@@ -5,6 +5,7 @@ import { createServer } from "http";
 import { setupAuth } from "./auth";
 
 const app = express();
+app.set("trust proxy", 1);
 const httpServer = createServer(app);
 
 declare module "http" {
@@ -113,13 +114,16 @@ app.use((req, res, next) => {
           });
         };
         setInterval(keepAlive, 2 * 60 * 1000);
-        const https = require("https");
-        setInterval(() => {
-          const ext = https.get("https://rapture-by-rj-rapture-labs.replit.app/api/health", (res: any) => {
-            res.resume();
-          });
-          ext.on("error", () => {});
-        }, 3 * 60 * 1000);
+        const externalUrl = process.env.RENDER_EXTERNAL_URL || process.env.REPLIT_EXTERNAL_URL;
+        if (externalUrl) {
+          const https = require("https");
+          setInterval(() => {
+            const ext = https.get(`${externalUrl}/api/health`, (res: any) => {
+              res.resume();
+            });
+            ext.on("error", () => {});
+          }, 3 * 60 * 1000);
+        }
       }
     },
   );
