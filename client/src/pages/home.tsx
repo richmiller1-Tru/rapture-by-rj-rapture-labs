@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/chronicles?tab=community", label: "Community" },
   { href: "/chronicles?tab=challenges", label: "Challenges" },
   { href: "/chronicles?tab=lore", label: "Lore" },
+  { href: "/picoin", label: "Pi Coin" },
 ];
 
 const platformFeatures = [

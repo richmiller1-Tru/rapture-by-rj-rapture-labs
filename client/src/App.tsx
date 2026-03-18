@@ -8,6 +8,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import ChroniclesHub from "@/pages/chronicles/index";
 import AuthPage from "@/pages/auth";
+import PiCoinPage from "@/pages/picoin";
 
 function Router() {
   return (
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/chronicles" component={ChroniclesHub} />
       <Route path="/auth" component={AuthPage} />
+      <Route path="/picoin" component={PiCoinPage} />
       <Route component={NotFound} />
     </Switch>
   );
